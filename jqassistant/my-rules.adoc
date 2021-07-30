@@ -1,0 +1,22 @@
+= My Project
+
+[[default]]
+[role=group,includesConstraints="my-rules:*"]
+== Default Rules
+
+[[my-rules:ServiceMustNotDependOnDomain]]
+.Service must not depend on org.example.domain.
+[source,cypher,role=constraint]
+----
+MATCH
+    (c {name:"Service"})-[:DEPENDS_ON]->(d)
+WHERE
+    d.fqn STARTS WITH "org.example.domain"
+RETURN
+    c.fqn, d.fqn
+----
+
+== Imported Rules
+
+// Include specific rules that have been executed and their results.
+include::jQA:Rules[concepts="junit*:*"]
